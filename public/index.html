@@ -56,6 +56,14 @@ html[lang=he] .chev{transform:scaleX(-1)}html[lang=he] details[open]>summary .ch
 html[lang=he] .body h3{font:700 21px/1.3 "Frank Ruhl Libre",serif}
 .body h4{font:700 15px/1.3 Assistant,sans-serif;margin:16px 0 6px;color:var(--mute)}
 html[lang=he] .body h4{font:700 17px "Frank Ruhl Libre",serif}
+details.sec{border-bottom:1px solid var(--line)}
+details.sec>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 4px;min-height:44px}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::before{content:"+";flex:none;width:22px;height:22px;border-radius:50%;border:1px solid var(--gold);color:var(--gold);font:700 15px/20px Assistant,sans-serif;text-align:center}
+details.sec[open]>summary::before{content:"−"}
+details.sec>summary:hover{background:var(--panel)}
+details.sec>summary h3{margin:0!important}
+details.sec[open]{padding-bottom:14px}
 .lead{color:var(--mute);max-width:78ch}
 .body p{max-width:80ch;margin:0 0 12px}
 table.ft{width:100%;border-collapse:collapse;font-size:15px;margin:6px 0 10px}
@@ -559,13 +567,13 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 {
 const T={
   en:{ph:"Search (Shabbat, tefillin, שבת) or a number: P 25, N 100",of:"of 613",pos:"Positive",neg:"Negative",star:"in depth",
-      phr:"How each counter phrases it",phrLead:"The opening words of each source for this mitzva, as they appear on Sefaria.",src:"Source",words:"Wording",
+      phr:"How each counter phrases it",phr2:"Opening words of each source",perla2:"R' Perla — every passage on Sefaria",phrLead:"The opening words of each source for this mitzva, as they appear on Sefaria.",src:"Source",words:"Wording",
       shm:"Rambam, Sefer HaMitzvot",mt:"Rambam, list at the head of the Mishneh Torah",rasag:"Rasag",chinuch:"Chinuch",smag:"SMaG",smak:"SMaK",
       perla:"R' Yerucham Fishel Perla",perlaOn:"On Rasag's",perlaMissing:"Rasag counts this mitzva, but R' Perla's comment on it isn't on Sefaria.",
       cites:"Where R' Perla discusses the Rambam's count of this mitzva",ramban:"citing the Ramban",showAll:"Show all",noPerla:"No comment by R' Perla on this mitzva turned up in the sections that are on Sefaria.",
       loading:"Loading…",sources:"All sources",note:"Rambam's location note",torah:"Torah",mtL:"Mishneh Torah",talmud:"Gemara",midrash:"Midrash",tur:"Tur",shmX:"Sefer HaMitzvot (cross-refs)",comm:"Commentaries",other:"More",chars:"characters"},
   he:{ph:"חיפוש (שבת, תפילין) או מספר: ע 25, ל 100",of:"מתוך 613",pos:"עשה",neg:"ל״ת",star:"בירור",
-      phr:"לשון כל מונה במצוה",phrLead:"פתיחת דברי כל מקור במצוה זו, כפי שהיא בספריא.",src:"מקור",words:"הלשון",
+      phr:"לשון כל מונה במצוה",phr2:"פתיחת דברי כל מקור",perla2:"הגרי״פ — כל המקומות שבספריא",phrLead:"פתיחת דברי כל מקור במצוה זו, כפי שהיא בספריא.",src:"מקור",words:"הלשון",
       shm:"רמב״ם, ספר המצוות",mt:"רמב״ם, מניין המצוות שבראש היד",rasag:"רס״ג",chinuch:"חינוך",smag:"סמ״ג",smak:"סמ״ק",
       perla:"הגרי״פ פערלא",perlaOn:"על רס״ג",perlaMissing:"רס״ג מונה מצוה זו, אך ביאור הגרי״פ עליה אינו בספריא.",
       cites:"מקומות שבהם הגרי״פ דן במניין הרמב״ם למצוה זו",ramban:"בשם הרמב״ן",showAll:"הצג הכל",noPerla:"לא נמצא דיון של הגרי״פ במצוה זו בסעיפים שבספריא.",
@@ -595,11 +603,11 @@ function phrasing(r){
   rows.push([t("shm"),r.shm,f.shm]);
   rows.push([t("mt"),null,r.h]);
   for(const k of ["rasag","chinuch","smag","smak"])for(const x of (f[k]||[]))rows.push([`${t(k)} <span class="count">${esc(L==="he"?x[0].replace(/^.*?,\s*/,""):x[1].replace(/^.*?(\d[\d:\-]*)$/,"$1"))}</span>`,x[2],x[3]]);
-  return `<h3>${t("phr")}</h3><p class="lead">${t("phrLead")}</p><table class="ft"><thead><tr><th>${t("src")}</th><th>${t("words")}</th></tr></thead><tbody>${rows.map(([a,u,w])=>`<tr><td>${u?`<a href="${esc(u)}">${a}</a>`:a}</td><td class="q" lang="he">${esc(w)}</td></tr>`).join("")}</tbody></table>`;
+  return `<details class="sec"><summary><h3>${t(DD[r.k+r.n]?"phr2":"phr")}</h3></summary><p class="lead">${t("phrLead")}</p><table class="ft"><thead><tr><th>${t("src")}</th><th>${t("words")}</th></tr></thead><tbody>${rows.map(([a,u,w])=>`<tr><td>${u?`<a href="${esc(u)}">${a}</a>`:a}</td><td class="q" lang="he">${esc(w)}</td></tr>`).join("")}</tbody></table></details>`;
 }
-function perlaHtml(r){
-  const k=r.k+r.n;if(!perla)return `<div class="perla" data-k="${k}"><h3>${t("perla")}</h3><p class="empty">${t("loading")}</p></div>`;
-  const v=perla[k]||{main:[],cites:[]};let h=`<h3>${t("perla")}</h3>`;
+function perlaHtml(r,o){
+  const k=r.k+r.n;if(!perla)return `<details class="sec perla" data-k="${k}"><summary><h3>${t(DD[k]?"perla2":"perla")}</h3></summary><p class="empty">${t("loading")}</p></details>`;
+  const v=perla[k]||{main:[],cites:[]};let h="";
   for(const m of v.main){
     if(m.has)h+=`<div class="p"><div class="r"><a href="${esc(m.url)}">${t("perlaOn")} ${esc(L==="he"?m.rasag.replace(/^.*?,\s*/,""):m.rasagEn.replace("Sefer Hamitzvot of Rasag, ",""))}</a> · ${Math.round(m.size/1000)}k ${t("chars")}</div><div class="t">${esc(m.open)}…</div></div>`;
     else h+=`<p class="empty">${t("perlaMissing")} (${esc(L==="he"?m.rasag:m.rasagEn)})</p>`;
@@ -611,20 +619,33 @@ function perlaHtml(r){
     if(v.cites.length>3)h+=`<div class="rest" hidden>${v.cites.slice(3).map(one).join("")}</div><button class="more" type="button">${t("showAll")} (${v.cites.length})</button>`;
   }
   if(!v.main.some(m=>m.has)&&!v.cites.length&&!v.main.length)h+=`<p class="empty">${t("noPerla")}</p>`;
-  return `<div class="perla" data-k="${k}">${h}</div>`;
+  return `<details class="sec perla" data-k="${k}"${o?" open":""}><summary><h3>${t(DD[k]?"perla2":"perla")}</h3></summary>${h}</details>`;
 }
 const GROUPS=[["torah","torah"],["mt","mtL"],["chinuch","chinuch"],["smag","smag"],["smak","smak"],["rasag","rasag"],["tur","tur"],["talmud","talmud"],["midrash","midrash"],["shm","shmX"],["comm","comm"],["other","other"]];
 function sources(r){
   const chips=[`<span><em>${t("shm")}</em><a href="${esc(r.shm)}">${r.k==="P"?"עשה":"ל״ת"} ${heNum(r.n)}</a></span>`];
   for(const [k,n] of GROUPS){const G=r.g[k];if(!G)continue;chips.push(`<span><em>${t(n)}</em>${G.map(x=>`<a href="${esc(x[2])}">${esc(L==="he"?x[0]:x[1])}</a>`).join(" · ")}</span>`)}
-  return `<h3>${t("sources")}</h3>${r.loc?`<p class="loc"><span class="count">${t("note")}:</span> (${esc(r.loc)})</p>`:""}<div class="chips">${chips.join("")}</div>`;
+  return `<details class="sec"><summary><h3>${t("sources")}</h3></summary>${r.loc?`<p class="loc"><span class="count">${t("note")}:</span> (${esc(r.loc)})</p>`:""}<div class="chips">${chips.join("")}</div></details>`;
 }
+function sectionize(html){
+  const box=document.createElement("div");box.innerHTML=html;
+  for(const part of box.querySelectorAll(".en,.he")){
+    const kids=[...part.childNodes];part.textContent="";let cur=null;
+    for(const n of kids){
+      if(n.nodeType===1&&n.tagName==="H3"){cur=document.createElement("details");cur.className="sec";const s=document.createElement("summary");s.appendChild(n);cur.appendChild(s);part.appendChild(cur)}
+      else if(cur)cur.appendChild(n);else part.appendChild(n);
+    }
+  }
+  return box.innerHTML;
+}
+const DDS={};
 function body(r){
-  const dd=DD[r.k+r.n];
-  return `<div class="body">${dd?dd:""}${phrasing(r)}${perlaHtml(r)}${sources(r)}</div>`;
+  const k=r.k+r.n,dd=DD[k];
+  if(dd&&!DDS[k])DDS[k]=sectionize(dd);
+  return `<div class="body">${dd?DDS[k]:""}${phrasing(r)}${perlaHtml(r)}${sources(r)}</div>`;
 }
 function loadPerla(){
-  if(!perlaP)perlaP=fetch("perla.json").then(x=>x.json()).then(d=>{perla=d;for(const el of document.querySelectorAll(".perla[data-k]")){const r=data.find(z=>z.k+z.n===el.dataset.k);if(r)el.outerHTML=perlaHtml(r)}}).catch(()=>{for(const el of document.querySelectorAll(".perla .empty"))el.textContent="—"});
+  if(!perlaP)perlaP=fetch("perla.json").then(x=>x.json()).then(d=>{perla=d;for(const el of document.querySelectorAll(".perla[data-k]")){const r=data.find(z=>z.k+z.n===el.dataset.k);if(r)el.outerHTML=perlaHtml(r,el.open)}}).catch(()=>{for(const el of document.querySelectorAll(".perla .empty"))el.textContent="—"});
 }
 const match=()=>{
   const raw=q.value.trim();const m=raw.match(/^(ע|עשה|P|p|pos|ל|ל"ת|ל״ת|לת|N|n|neg)?\s*(\d{1,3})$/i);
