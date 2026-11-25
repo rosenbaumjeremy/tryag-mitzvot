@@ -1,8 +1,11 @@
 # מראה מקומות לתרי״ג מצוות — Sources for the 613 Mitzvot
 
-A single self-contained page (`index.html`). All 613 mitzvot are embedded in it, so you need no server code or build step, and it works even when you open the file straight from your disk.
+A single self-contained page (`public/index.html`), deployed as a Cloudflare Worker with static assets (`wrangler.jsonc`). All 613 mitzvot are embedded in it, so you need no server code or build step, and it works even when you open the file straight from your disk.
 
-## Put it online (pick one)
+## Deploying
+It is deployed as a Cloudflare Worker (Workers Builds, connected to this repository). Every push to `main` redeploys it. To deploy by hand, run `npx wrangler deploy`.
+
+## Other places to host it
 
 - **Netlify Drop:** go to app.netlify.com/drop and drag this folder onto the page. You get a link right away, and you can connect your own domain later.
 - **GitHub Pages:** create a repository, upload `index.html`, then go to Settings → Pages → Deploy from branch `main` / root. The site appears at `https://<username>.github.io/<repository>/`.
