@@ -66,7 +66,12 @@ table.ft td:first-child{width:22%;font-weight:600}
 table.ft td[lang=he],table.ft td.q{font-family:"Frank Ruhl Libre",serif;font-size:16.5px;direction:rtl;text-align:right}
 html[lang=he] table.ft td.q{text-align:right}
 .axes{margin:0;padding-inline-start:20px}.axes li{margin:0 0 6px}
-ol.nm{margin:0;padding-inline-start:22px}ol.nm li{margin:0 0 9px}
+ol.nm{list-style:none;margin:8px 0 6px;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:12px;counter-reset:nm}
+ol.nm>li{counter-increment:nm;position:relative;background:var(--bg);border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:10px;padding:14px 16px 14px;box-shadow:0 1px 2px rgba(22,48,92,.06);line-height:1.55}
+ol.nm>li::before{content:counter(nm);position:absolute;top:-13px;inset-inline-start:14px;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--navy);color:var(--bg);font:700 13px/24px Assistant,sans-serif;text-align:center}
+html[lang=he] ol.nm>li::before{content:counter(nm,hebrew);font:700 14px/24px "Frank Ruhl Libre",serif}
+ol.nm>li>b:first-child{display:block;font:700 16.5px/1.3 Assistant,sans-serif;color:var(--navy);margin:4px 0 8px;padding-bottom:7px;border-bottom:1px solid var(--line)}
+html[lang=he] ol.nm>li>b:first-child{font:700 18.5px/1.3 "Frank Ruhl Libre",serif}
 .perla .p{border:1px solid var(--line);border-radius:8px;padding:10px 12px;margin:0 0 8px;background:var(--panel)}
 .perla .p .t{font-family:"Frank Ruhl Libre",serif;font-size:16px;direction:rtl;text-align:right;color:var(--ink)}
 .perla .p .r{font-size:13.5px;color:var(--mute);margin-bottom:4px}
@@ -144,11 +149,11 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
   <h3>Nafka minas that come from the wording</h3>
   <ol class="nm">
     <li><b>A constant mitzva, or twice a day?</b> If the mitzva is believing (Chinuch), it binds every moment. Whenever one thinks of it, one fulfills a mitzvat aseh (<a href="https://www.sefaria.org/Biur_Halacha.1.1">Biur Halacha 1</a>). If it is the declaration of unity in Shema (the Geonim, per R' Perla), it is fulfilled twice daily, at fixed times.</li>
-    <li><b>Women.</b> Believing is not time-bound, so women are obligated (Chinuch: <span lang="he">"בזכרים ונקבות"</span>). Kriat Shema is time-bound, and women are exempt. On the Geonim's view, then, women have no counted mitzva of יחוד, though belief is of course required of them.</li>
+    <li><b>Women</b> Believing is not time-bound, so women are obligated (Chinuch: <span lang="he">"בזכרים ונקבות"</span>). Kriat Shema is time-bound, and women are exempt. On the Geonim's view, then, women have no counted mitzva of יחוד, though belief is of course required of them.</li>
     <li><b>Is there a duty to study the proofs?</b> "Knowing" (Mishneh Torah) implies understanding. "Believing" (Sefer HaMitzvot) can be fulfilled through tradition alone. The Chinuch resolves it: belief is enough, and proof is the choice way to fulfill it.</li>
-    <li><b>Someone who accepts a First Cause but sees the Exodus as chance.</b> He satisfies the Rambam's wording in Sefer HaMitzvot, but not the Chinuch's (<span lang="he">"שלא יפתה לבבכם… דרך מקרה"</span>), the Ramban's or the SMaG's.</li>
-    <li><b>Saying Shema without belief, or believing without saying it.</b> R' Perla holds that neither fulfills יחוד alone. Speaking without belief is <span lang="he">"לאו כלום"</span>, and belief without speaking isn't the mitzva the Geonim count.</li>
-    <li><b>How many לאוין are in לא יהיה.</b> Counting אנכי leaves room for only one more mitzva "from the mouth of God". The Rambam's four לאוין in that dibbur give the Ramban's problem of "five from God, 608 from Moshe" (<a href="https://www.sefaria.org/Hasagot_HaRamban_on_Sefer_HaMitzvot,_Negative_Commandments_5">Ramban, Neg. 5</a>).</li>
+    <li><b>Someone who accepts a First Cause but sees the Exodus as chance</b> He satisfies the Rambam's wording in Sefer HaMitzvot, but not the Chinuch's (<span lang="he">"שלא יפתה לבבכם… דרך מקרה"</span>), the Ramban's or the SMaG's.</li>
+    <li><b>Saying Shema without belief, or believing without saying it</b> R' Perla holds that neither fulfills יחוד alone. Speaking without belief is <span lang="he">"לאו כלום"</span>, and belief without speaking isn't the mitzva the Geonim count.</li>
+    <li><b>How many לאוין are in לא יהיה</b> Counting אנכי leaves room for only one more mitzva "from the mouth of God". The Rambam's four לאוין in that dibbur give the Ramban's problem of "five from God, 608 from Moshe" (<a href="https://www.sefaria.org/Hasagot_HaRamban_on_Sefer_HaMitzvot,_Negative_Commandments_5">Ramban, Neg. 5</a>).</li>
     <li><b>A korban for denial?</b> If denying God is itself avoda zara (Meiri), one would bring a sin-offering for denial alone. R' Perla rejects this.</li>
   </ol>
 </div>
@@ -187,11 +192,11 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
   <h3>נפקא מינות היוצאות מן הלשון</h3>
   <ol class="nm">
     <li><b>תמידית או פעמיים ביום?</b> אם המצוה היא אמונה (חינוך) — חיובה בכל רגע, וכל רגע שחושב בה מקיים מצות עשה (<a href="https://www.sefaria.org/Biur_Halacha.1.1">ביאור הלכה א׳</a>). אם היא אמירת היחוד בשמע (הגאונים לפי הגרי״פ) — מתקיימת פעמיים ביום בזמנים קבועים.</li>
-    <li><b>נשים.</b> אמונה אינה תלויה בזמן ונשים חייבות (חינוך: ״בזכרים ונקבות״). קריאת שמע זמן גרמא ונשים פטורות — ונמצא שלגאונים אין לנשים מצוה נמנית של יחוד, אף שודאי חייבות באמונה.</li>
+    <li><b>נשים</b> אמונה אינה תלויה בזמן ונשים חייבות (חינוך: ״בזכרים ונקבות״). קריאת שמע זמן גרמא ונשים פטורות — ונמצא שלגאונים אין לנשים מצוה נמנית של יחוד, אף שודאי חייבות באמונה.</li>
     <li><b>חובת עיון במופתים?</b> ״ידיעה״ (משנה תורה) מורה על הבנה; ״אמונה״ (ספר המצוות) מתקיימת גם מן הקבלה. החינוך מכריע: באמונה יוצא, ובמופת — מן המובחר.</li>
-    <li><b>המודה בעילה ראשונה ורואה ביציאת מצרים מקרה.</b> יוצא כלשון ספר המצוות, אך לא כלשון החינוך (״שלא יפתה לבבכם… דרך מקרה״), הרמב״ן או הסמ״ג.</li>
-    <li><b>אמר שמע בלא אמונה, או האמין בלא אמירה.</b> לגרי״פ אין בשניהם קיום יחוד: אמירה בלא אמונה — ״לאו כלום קעביד״; אמונה בלא אמירה — אינה המצוה שהגאונים מונים.</li>
-    <li><b>מניין הלאוין שב״לא יהיה״.</b> המונה את אנכי נשאר לו מקום למצוה אחת בלבד ״מפי הגבורה״; ארבעת הלאוין של הרמב״ם בדיבור זה מביאים לקושיית ״חמש מפי הגבורה ותר״ח מפי משה״ (<a href="https://www.sefaria.org/Hasagot_HaRamban_on_Sefer_HaMitzvot,_Negative_Commandments_5">רמב״ן ל״ת ה׳</a>).</li>
+    <li><b>המודה בעילה ראשונה ורואה ביציאת מצרים מקרה</b> יוצא כלשון ספר המצוות, אך לא כלשון החינוך (״שלא יפתה לבבכם… דרך מקרה״), הרמב״ן או הסמ״ג.</li>
+    <li><b>אמר שמע בלא אמונה, או האמין בלא אמירה</b> לגרי״פ אין בשניהם קיום יחוד: אמירה בלא אמונה — ״לאו כלום קעביד״; אמונה בלא אמירה — אינה המצוה שהגאונים מונים.</li>
+    <li><b>מניין הלאוין שב״לא יהיה״</b> המונה את אנכי נשאר לו מקום למצוה אחת בלבד ״מפי הגבורה״; ארבעת הלאוין של הרמב״ם בדיבור זה מביאים לקושיית ״חמש מפי הגבורה ותר״ח מפי משה״ (<a href="https://www.sefaria.org/Hasagot_HaRamban_on_Sefer_HaMitzvot,_Negative_Commandments_5">רמב״ן ל״ת ה׳</a>).</li>
     <li><b>קרבן על הכפירה?</b> אם הכפירה במציאותו היא עצמה ע״ז (מאירי), יתחייב חטאת על כפירה לבדה, והגרי״פ דוחה זאת.</li>
   </ol>
 </div>
@@ -234,12 +239,12 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 
   <h3>Nafka minas that come from the wording</h3>
   <ol class="nm">
-    <li><b>Missed the first night.</b> Rasag and Rav Yehudai (weeks only): stop counting. Rav Hai: carry on. The Behag: missing <i>any</i> day ends the count. Tosafot and the Rosh: each night is its own mitzva. The <a href="https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.489">Shulchan Aruch</a>: carry on without a bracha.</li>
-    <li><b>One bracha or two.</b> Rambam: one, since it is one mitzva (his proof). Rabbeinu Yerucham: two in Temple times, one today, because the weeks are only a remembrance.</li>
+    <li><b>Missed the first night</b> Rasag and Rav Yehudai (weeks only): stop counting. Rav Hai: carry on. The Behag: missing <i>any</i> day ends the count. Tosafot and the Rosh: each night is its own mitzva. The <a href="https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.489">Shulchan Aruch</a>: carry on without a bracha.</li>
+    <li><b>One bracha or two</b> Rambam: one, since it is one mitzva (his proof). Rabbeinu Yerucham: two in Temple times, one today, because the weeks are only a remembrance.</li>
     <li><b>From the Torah today?</b> Days are from the Torah always (Rabbeinu Yerucham; this explains R' Eliyahu HaZaken). The whole count is from the Torah always (Rambam, <span lang="he">"בכל מקום ובכל זמן"</span>). Everything is rabbinic today (Chinuch, Tosafot, Ameimar). This decides whether one may count at twilight with a bracha.</li>
-    <li><b>Counted days and not weeks, or weeks and not days.</b> It depends on which is the essence: days for the Rif, weeks for Rasag and the Mishneh Torah. The <a href="https://www.sefaria.org/Mishnah_Berurah.489.7">Mishna Berura</a>: after counting days only, count again without a bracha; weeks only doesn't fulfill it.</li>
-    <li><b>How to phrase the count.</b> "Fourteen days, which are two weeks" (Shulchan Aruch). Or two separate statements, "today is fourteen days, today is two weeks" (Rabbeinu Yerucham's question). Or "one week and one day" (R' Ephraim).</li>
-    <li><b>Make-up days for Shavuot.</b> Seven days, because the counted unit is a week. That follows Rasag's reading; on the other readings it is a difficulty.</li>
+    <li><b>Counted days and not weeks, or weeks and not days</b> It depends on which is the essence: days for the Rif, weeks for Rasag and the Mishneh Torah. The <a href="https://www.sefaria.org/Mishnah_Berurah.489.7">Mishna Berura</a>: after counting days only, count again without a bracha; weeks only doesn't fulfill it.</li>
+    <li><b>How to phrase the count</b> "Fourteen days, which are two weeks" (Shulchan Aruch). Or two separate statements, "today is fourteen days, today is two weeks" (Rabbeinu Yerucham's question). Or "one week and one day" (R' Ephraim).</li>
+    <li><b>Make-up days for Shavuot</b> Seven days, because the counted unit is a week. That follows Rasag's reading; on the other readings it is a difficulty.</li>
     <li><b>Who counts?</b> Each individual (Emor, <span lang="he">"וספרתם לכם"</span>) and also the beit din (Re'eh), per the Sifrei and Chizkuni. This is why the Rambam's comparison to the beit din's shemitta count only goes so far.</li>
   </ol>
 </div>
@@ -278,12 +283,12 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 
   <h3>נפקא מינות היוצאות מן הלשון</h3>
   <ol class="nm">
-    <li><b>שכח לילה ראשון.</b> רס״ג ורב יהודאי (שבועות בלבד) — אינו מונה עוד; רב האי — ממשיך. בה״ג — כל יום שדילג מפסיק. תוס׳ והרא״ש — כל לילה מצוה בפני עצמה. ה<a href="https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.489">שו״ע</a> — ממשיך בלא ברכה.</li>
-    <li><b>ברכה אחת או שתיים.</b> רמב״ם — אחת, שמצוה אחת היא (וזו ראייתו). רבינו ירוחם — בזמן הבית שתיים, והיום אחת, שהשבועות אינם אלא זכר.</li>
+    <li><b>שכח לילה ראשון</b> רס״ג ורב יהודאי (שבועות בלבד) — אינו מונה עוד; רב האי — ממשיך. בה״ג — כל יום שדילג מפסיק. תוס׳ והרא״ש — כל לילה מצוה בפני עצמה. ה<a href="https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.489">שו״ע</a> — ממשיך בלא ברכה.</li>
+    <li><b>ברכה אחת או שתיים</b> רמב״ם — אחת, שמצוה אחת היא (וזו ראייתו). רבינו ירוחם — בזמן הבית שתיים, והיום אחת, שהשבועות אינם אלא זכר.</li>
     <li><b>דאורייתא בזמן הזה?</b> הימים לעולם מן התורה (רבינו ירוחם; ומכאן לשון ר׳ אליה הזקן); כל הספירה לעולם מן התורה (רמב״ם, ״בכל מקום ובכל זמן״); הכל מדרבנן היום (חינוך, תוס׳, אמימר). ונפקא מינה לספירה בבין השמשות בברכה.</li>
-    <li><b>מנה ימים ולא שבועות, או שבועות ולא ימים.</b> תלוי מה העיקר — לרי״ף ימים, לרס״ג ולמשנה תורה שבועות. ה<a href="https://www.sefaria.org/Mishnah_Berurah.489.7">משנה ברורה</a>: מנה ימים בלבד — חוזר וסופר בלא ברכה; שבועות בלבד — לא יצא.</li>
-    <li><b>נוסח הספירה.</b> ״ארבעה עשר יום שהם שני שבועות״ (שו״ע); או שני משפטים נפרדים, ״היום י״ד יום והיום שני שבועות״ (קושיית רבינו ירוחם); או ״שבוע אחד ויום אחד״ (רבינו אפרים).</li>
-    <li><b>תשלומי עצרת.</b> שבעה ימים, משום שהיחידה הנמנית היא שבוע — כשיטת רס״ג; ולשיטות האחרות — קושיא.</li>
+    <li><b>מנה ימים ולא שבועות, או שבועות ולא ימים</b> תלוי מה העיקר — לרי״ף ימים, לרס״ג ולמשנה תורה שבועות. ה<a href="https://www.sefaria.org/Mishnah_Berurah.489.7">משנה ברורה</a>: מנה ימים בלבד — חוזר וסופר בלא ברכה; שבועות בלבד — לא יצא.</li>
+    <li><b>נוסח הספירה</b> ״ארבעה עשר יום שהם שני שבועות״ (שו״ע); או שני משפטים נפרדים, ״היום י״ד יום והיום שני שבועות״ (קושיית רבינו ירוחם); או ״שבוע אחד ויום אחד״ (רבינו אפרים).</li>
+    <li><b>תשלומי עצרת</b> שבעה ימים, משום שהיחידה הנמנית היא שבוע — כשיטת רס״ג; ולשיטות האחרות — קושיא.</li>
     <li><b>מי סופר?</b> כל יחיד (אמור, ״וספרתם לכם״) וגם בית דין (ראה), לפי הספרי והחזקוני. ומכאן גבול השוואת הרמב״ם לספירת שמיטין של בית דין.</li>
   </ol>
 </div>
@@ -323,13 +328,13 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 
   <h3>Nafka minas that come from the wording</h3>
   <ol class="nm">
-    <li><b>Non-kosher animals.</b> If it was given to Yaakov's sons (R' Yehuda, the Behag), it applies to non-kosher animals too, since those were permitted to them then. If it was given at Sinai (the Sages, the Rambam: <span lang="he">"בבהמה וחיה הטהורין"</span>), it doesn't.</li>
-    <li><b>Non-Jews.</b> Sanhedrin 59a: <span lang="he">"אין לנו אלא גיד הנשה ואליבא דר׳ יהודה"</span>. It is the only mitzva said before Sinai, not repeated there, and therefore binding on Israel alone.</li>
+    <li><b>Non-kosher animals</b> If it was given to Yaakov's sons (R' Yehuda, the Behag), it applies to non-kosher animals too, since those were permitted to them then. If it was given at Sinai (the Sages, the Rambam: <span lang="he">"בבהמה וחיה הטהורין"</span>), it doesn't.</li>
+    <li><b>Non-Jews</b> Sanhedrin 59a: <span lang="he">"אין לנו אלא גיד הנשה ואליבא דר׳ יהודה"</span>. It is the only mitzva said before Sinai, not repeated there, and therefore binding on Israel alone.</li>
     <li><b>Is it one of the 613 at all?</b> On a strict reading of "said at Sinai", R' Yehuda's view would remove it from the count. R' Perla shows that every counter must read "at Sinai" as describing most of the list, not all of it.</li>
-    <li><b>A whole sinew smaller than a kezayit.</b> It earns lashes, because the wording forbids "the sinew", a whole item (Rambam: <span lang="he">"ואפילו היה קטן מאד"</span>; Chinuch: <span lang="he">"גיד אחד אפילו הוא פחות מכזית"</span>). Part of a sinew needs a kezayit.</li>
-    <li><b>Which part.</b> <span lang="he">"אשר על כף הירך"</span> limits the Torah prohibition to the section on the כף (Rambam). The rest of the sinew, the outer sinew and the fat are rabbinic. By Torah law its fat is permitted (<span lang="he">"וחלבו מותר"</span>, Mishna 7:1).</li>
-    <li><b>Birds.</b> No כף, so no prohibition (Mishna 7:1). The wording itself sets the boundary.</li>
-    <li><b>A fetus.</b> The Sages and the Rambam: it applies. R' Yehuda: it doesn't.</li>
+    <li><b>A whole sinew smaller than a kezayit</b> It earns lashes, because the wording forbids "the sinew", a whole item (Rambam: <span lang="he">"ואפילו היה קטן מאד"</span>; Chinuch: <span lang="he">"גיד אחד אפילו הוא פחות מכזית"</span>). Part of a sinew needs a kezayit.</li>
+    <li><b>Which part</b> <span lang="he">"אשר על כף הירך"</span> limits the Torah prohibition to the section on the כף (Rambam). The rest of the sinew, the outer sinew and the fat are rabbinic. By Torah law its fat is permitted (<span lang="he">"וחלבו מותר"</span>, Mishna 7:1).</li>
+    <li><b>Birds</b> No כף, so no prohibition (Mishna 7:1). The wording itself sets the boundary.</li>
+    <li><b>A fetus</b> The Sages and the Rambam: it applies. R' Yehuda: it doesn't.</li>
   </ol>
 </div>
 <div class="he">
@@ -365,13 +370,13 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 
   <h3>נפקא מינות היוצאות מן הלשון</h3>
   <ol class="nm">
-    <li><b>בהמה טמאה.</b> אם לבני יעקב נאמר (ר׳ יהודה, בה״ג) — נוהג גם בטמאה, שהייתה מותרת להם אז. אם בסיני (רבנן, רמב״ם: ״בבהמה וחיה הטהורין״) — אינו נוהג.</li>
-    <li><b>בני נח.</b> סנהדרין נט.: ״אין לנו אלא גיד הנשה ואליבא דר׳ יהודה״ — המצוה היחידה שנאמרה לפני סיני ולא נשנית, ולכן לישראל בלבד.</li>
+    <li><b>בהמה טמאה</b> אם לבני יעקב נאמר (ר׳ יהודה, בה״ג) — נוהג גם בטמאה, שהייתה מותרת להם אז. אם בסיני (רבנן, רמב״ם: ״בבהמה וחיה הטהורין״) — אינו נוהג.</li>
+    <li><b>בני נח</b> סנהדרין נט.: ״אין לנו אלא גיד הנשה ואליבא דר׳ יהודה״ — המצוה היחידה שנאמרה לפני סיני ולא נשנית, ולכן לישראל בלבד.</li>
     <li><b>האם בכלל תרי״ג?</b> לפי ״נאמרו בסיני״ כפשוטו — לר׳ יהודה יוצא מן המניין. הגרי״פ מוכיח שכל המונים צריכים לפרש ״בסיני״ על הרוב.</li>
-    <li><b>גיד שלם פחות מכזית.</b> לוקה, שהלשון אוסרת ״את הגיד״ — דבר שלם (רמב״ם: ״ואפילו היה קטן מאד״; חינוך: ״גיד אחד אפילו הוא פחות מכזית״). מקצת גיד — בכזית.</li>
-    <li><b>איזה חלק.</b> ״אשר על כף הירך״ מצמצם את איסור התורה לשעל הכף (רמב״ם); שאר הגיד, החיצון והחלב — מדרבנן. מן התורה חלבו מותר (משנה ז:א).</li>
-    <li><b>עוף.</b> אין לו כף — ואינו נוהג (משנה ז:א). הלשון עצמה קובעת את הגבול.</li>
-    <li><b>שליל.</b> רבנן והרמב״ם — נוהג; ר׳ יהודה — אינו נוהג.</li>
+    <li><b>גיד שלם פחות מכזית</b> לוקה, שהלשון אוסרת ״את הגיד״ — דבר שלם (רמב״ם: ״ואפילו היה קטן מאד״; חינוך: ״גיד אחד אפילו הוא פחות מכזית״). מקצת גיד — בכזית.</li>
+    <li><b>איזה חלק</b> ״אשר על כף הירך״ מצמצם את איסור התורה לשעל הכף (רמב״ם); שאר הגיד, החיצון והחלב — מדרבנן. מן התורה חלבו מותר (משנה ז:א).</li>
+    <li><b>עוף</b> אין לו כף — ואינו נוהג (משנה ז:א). הלשון עצמה קובעת את הגבול.</li>
+    <li><b>שליל</b> רבנן והרמב״ם — נוהג; ר׳ יהודה — אינו נוהג.</li>
   </ol>
 </div>
 </div>
@@ -409,13 +414,13 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 
   <h3>Nafka minas that come from the wording</h3>
   <ol class="nm">
-    <li><b>Married but childless.</b> If the mitzva is the outcome (Mishneh Torah: <span lang="he">"עד שיהיו לו בנים"</span>), he hasn't fulfilled it. If it is the activity (Rasag, as R' Perla explains), he fulfills it every day he is engaged in it.</li>
+    <li><b>Married but childless</b> If the mitzva is the outcome (Mishneh Torah: <span lang="he">"עד שיהיו לו בנים"</span>), he hasn't fulfilled it. If it is the activity (Rasag, as R' Perla explains), he fulfills it every day he is engaged in it.</li>
     <li><b>Is kiddushin a mitzva of its own?</b> The Rambam (עשה רי״ג) and the Chinuch (תקנ״ב): yes; one who marries without kiddushin transgresses. Rasag and the Rosh: no; kiddushin is only the vehicle for פריה ורביה.</li>
-    <li><b>Women and contraception.</b> Women are not commanded (<span lang="he">"וכבשה" כתיב</span>; Rasag's <span lang="he">"באשה תריד"</span> alludes to it). Rabbeinu Tam reasons from this that women were not warned against wasting seed. R' Perla discusses it at Neg. 115.</li>
+    <li><b>Women and contraception</b> Women are not commanded (<span lang="he">"וכבשה" כתיב</span>; Rasag's <span lang="he">"באשה תריד"</span> alludes to it). Rabbeinu Tam reasons from this that women were not warned against wasting seed. R' Perla discusses it at Neg. 115.</li>
     <li><b>Is wasting seed part of the mitzva?</b> Tosafot: yes. R' Perla: only a habitual practice that defeats the mitzva.</li>
-    <li><b>Which verse, and to whom.</b> The blessing to Adam (Chinuch, 1:28), or the command to Noach's sons (Rambam in Sefer HaMitzvot, 9:7)? This connects to whether it applies to non-Jews (Sanhedrin 59a) and to how a pre-Sinai mitzva enters the 613.</li>
-    <li><b>Age.</b> From 17, in violation from 20 (Rambam), or from "the age set for marriage", 18 (Chinuch, after Avot).</li>
-    <li><b>After a son and a daughter.</b> The Torah mitzva is complete, but a rabbinic duty continues <span lang="he">"כל זמן שיש בו כח"</span> (Rambam 15:16).</li>
+    <li><b>Which verse, and to whom</b> The blessing to Adam (Chinuch, 1:28), or the command to Noach's sons (Rambam in Sefer HaMitzvot, 9:7)? This connects to whether it applies to non-Jews (Sanhedrin 59a) and to how a pre-Sinai mitzva enters the 613.</li>
+    <li><b>Age</b> From 17, in violation from 20 (Rambam), or from "the age set for marriage", 18 (Chinuch, after Avot).</li>
+    <li><b>After a son and a daughter</b> The Torah mitzva is complete, but a rabbinic duty continues <span lang="he">"כל זמן שיש בו כח"</span> (Rambam 15:16).</li>
   </ol>
 </div>
 <div class="he">
@@ -449,13 +454,13 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 
   <h3>נפקא מינות היוצאות מן הלשון</h3>
   <ol class="nm">
-    <li><b>נשוי בלא ילדים.</b> אם המצוה תוצאה (משנה תורה: ״עד שיהיו לו בנים״) — לא קיים. אם עיסוק (רס״ג לפי הגרי״פ) — מקיים בכל יום שעוסק בה.</li>
+    <li><b>נשוי בלא ילדים</b> אם המצוה תוצאה (משנה תורה: ״עד שיהיו לו בנים״) — לא קיים. אם עיסוק (רס״ג לפי הגרי״פ) — מקיים בכל יום שעוסק בה.</li>
     <li><b>קידושין — מצוה בפני עצמה?</b> הרמב״ם (עשה רי״ג) והחינוך (תקנ״ב): כן, והנושא בלא קידושין עובר. רס״ג והרא״ש: לא; הקידושין אינם אלא אמצעי לפו״ר.</li>
-    <li><b>נשים ומניעת הריון.</b> נשים אינן מצוות (״וכבשה״ כתיב; וזה רמז רס״ג ״באשה תריד״). ומכאן ר״ת: לא הוזהרו על השחתת זרע. הגרי״פ דן בזה בל״ת קט״ו.</li>
+    <li><b>נשים ומניעת הריון</b> נשים אינן מצוות (״וכבשה״ כתיב; וזה רמז רס״ג ״באשה תריד״). ומכאן ר״ת: לא הוזהרו על השחתת זרע. הגרי״פ דן בזה בל״ת קט״ו.</li>
     <li><b>השחתת זרע — בכלל המצוה?</b> תוס׳: כן. הגרי״פ: רק הרגל שמבטל את המצוה.</li>
-    <li><b>איזה פסוק, ולמי.</b> ברכת אדם (חינוך, א:כח) או ציווי לבני נח (ספר המצוות, ט:ז)? ונוגע לשאלה אם נוהגת בבני נח (סנהדרין נט.), ואיך מצוה שקודם סיני נכנסת לתרי״ג.</li>
-    <li><b>גיל.</b> מבן י״ז ועובר מבן כ׳ (רמב״ם), או ״משהוא ראוי לה״ — בן י״ח (חינוך, ע״פ אבות).</li>
-    <li><b>אחרי בן ובת.</b> מן התורה קיים; מדברי סופרים ממשיך ״כל זמן שיש בו כח״ (רמב״ם ט״ו:ט״ז).</li>
+    <li><b>איזה פסוק, ולמי</b> ברכת אדם (חינוך, א:כח) או ציווי לבני נח (ספר המצוות, ט:ז)? ונוגע לשאלה אם נוהגת בבני נח (סנהדרין נט.), ואיך מצוה שקודם סיני נכנסת לתרי״ג.</li>
+    <li><b>גיל</b> מבן י״ז ועובר מבן כ׳ (רמב״ם), או ״משהוא ראוי לה״ — בן י״ח (חינוך, ע״פ אבות).</li>
+    <li><b>אחרי בן ובת</b> מן התורה קיים; מדברי סופרים ממשיך ״כל זמן שיש בו כח״ (רמב״ם ט״ו:ט״ז).</li>
   </ol>
 </div>
 </div>
@@ -496,13 +501,13 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 
   <h3>Nafka minas that come from the wording</h3>
   <ol class="nm">
-    <li><b>A slave's eighth day falls on Shabbat.</b> The Rambam: circumcise. R' Perla, and Rasag as he explains him: not necessarily. "On the eighth day" was said of sons.</li>
-    <li><b>A slave whose master doesn't circumcise him.</b> The Rambam: the beit din must. The Geonim, per R' Perla: the duty is the master's alone.</li>
-    <li><b>Count: one, two or four.</b> This decides whether an adult who circumcises himself, or a master circumcising a purchased slave, fulfills a separate mitzva (SMaK) or part of one (Rambam, Behag).</li>
-    <li><b>The act or the state.</b> If the mitzva is bearing the covenant (Maharach), a circumcised Jew fulfills it continuously. If it is the act (Chinuch: <span lang="he">"חותכין… ופורעין"</span>), it is complete once done. Cutting without periah is as if he didn't circumcise.</li>
-    <li><b>Who bears the karet.</b> Only the uncircumcised man himself, from bar mitzva, if he dies uncircumcised by choice. The father only transgresses an aseh (Rambam 1:1, Chinuch). SMaK: the father who delays transgresses <span lang="he">"בכל יום"</span>.</li>
-    <li><b>Women.</b> The mother isn't commanded (Kiddushin 29a; Rambam in Sefer HaMitzvot); the father is, or the beit din in his absence.</li>
-    <li><b>The eighth day.</b> Is it part of the mitzva's definition (SMaG), or a detail of an obligation that otherwise remains (Rambam: <span lang="he">"כל יום ויום… מבטל מצות עשה"</span>)?</li>
+    <li><b>A slave's eighth day falls on Shabbat</b> The Rambam: circumcise. R' Perla, and Rasag as he explains him: not necessarily. "On the eighth day" was said of sons.</li>
+    <li><b>A slave whose master doesn't circumcise him</b> The Rambam: the beit din must. The Geonim, per R' Perla: the duty is the master's alone.</li>
+    <li><b>Count: one, two or four</b> This decides whether an adult who circumcises himself, or a master circumcising a purchased slave, fulfills a separate mitzva (SMaK) or part of one (Rambam, Behag).</li>
+    <li><b>The act or the state</b> If the mitzva is bearing the covenant (Maharach), a circumcised Jew fulfills it continuously. If it is the act (Chinuch: <span lang="he">"חותכין… ופורעין"</span>), it is complete once done. Cutting without periah is as if he didn't circumcise.</li>
+    <li><b>Who bears the karet</b> Only the uncircumcised man himself, from bar mitzva, if he dies uncircumcised by choice. The father only transgresses an aseh (Rambam 1:1, Chinuch). SMaK: the father who delays transgresses <span lang="he">"בכל יום"</span>.</li>
+    <li><b>Women</b> The mother isn't commanded (Kiddushin 29a; Rambam in Sefer HaMitzvot); the father is, or the beit din in his absence.</li>
+    <li><b>The eighth day</b> Is it part of the mitzva's definition (SMaG), or a detail of an obligation that otherwise remains (Rambam: <span lang="he">"כל יום ויום… מבטל מצות עשה"</span>)?</li>
   </ol>
 </div>
 <div class="he">
@@ -539,13 +544,13 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 
   <h3>נפקא מינות היוצאות מן הלשון</h3>
   <ol class="nm">
-    <li><b>שמיני של עבד שחל בשבת.</b> רמב״ם — מלים. הגרי״פ, ורס״ג לפי דבריו — לא בהכרח; ״ביום השמיני״ נאמר בבנים.</li>
-    <li><b>עבד שאדונו לא מל אותו.</b> רמב״ם — בית דין חייבים. הגאונים לפי הגרי״פ — החובה על האדון בלבד.</li>
-    <li><b>מניין: אחת, שתיים או ארבע.</b> ונפקא מינה אם גדול המל את עצמו, או אדון המל מקנת כספו, מקיים מצוה נפרדת (סמ״ק) או חלק ממצוה אחת (רמב״ם, בה״ג).</li>
-    <li><b>פעולה או מצב.</b> אם המצוה היא הברית החתומה (מהר״ח) — יהודי מהול מקיים אותה תמיד. אם הפעולה (חינוך: ״חותכין… ופורעין״) — נגמרה משנעשתה, ו״מל ולא פרע כאילו לא מל״.</li>
-    <li><b>על מי הכרת.</b> רק על הערל עצמו, משהגדיל, אם מת ערל במזיד; האב עובר בעשה בלבד (רמב״ם א:א, חינוך). סמ״ק: אב המתעצל עובר ״בכל יום״.</li>
-    <li><b>נשים.</b> האם אינה מצווה (קידושין כט.; ספר המצוות) — האב, או בית דין במקום שאין אב.</li>
-    <li><b>היום השמיני.</b> חלק מהגדרת המצוה (סמ״ג), או פרט בחובה שנשארת בעינה גם אחריו (רמב״ם: ״כל יום ויום… מבטל מצות עשה״)?</li>
+    <li><b>שמיני של עבד שחל בשבת</b> רמב״ם — מלים. הגרי״פ, ורס״ג לפי דבריו — לא בהכרח; ״ביום השמיני״ נאמר בבנים.</li>
+    <li><b>עבד שאדונו לא מל אותו</b> רמב״ם — בית דין חייבים. הגאונים לפי הגרי״פ — החובה על האדון בלבד.</li>
+    <li><b>מניין: אחת, שתיים או ארבע</b> ונפקא מינה אם גדול המל את עצמו, או אדון המל מקנת כספו, מקיים מצוה נפרדת (סמ״ק) או חלק ממצוה אחת (רמב״ם, בה״ג).</li>
+    <li><b>פעולה או מצב</b> אם המצוה היא הברית החתומה (מהר״ח) — יהודי מהול מקיים אותה תמיד. אם הפעולה (חינוך: ״חותכין… ופורעין״) — נגמרה משנעשתה, ו״מל ולא פרע כאילו לא מל״.</li>
+    <li><b>על מי הכרת</b> רק על הערל עצמו, משהגדיל, אם מת ערל במזיד; האב עובר בעשה בלבד (רמב״ם א:א, חינוך). סמ״ק: אב המתעצל עובר ״בכל יום״.</li>
+    <li><b>נשים</b> האם אינה מצווה (קידושין כט.; ספר המצוות) — האב, או בית דין במקום שאין אב.</li>
+    <li><b>היום השמיני</b> חלק מהגדרת המצוה (סמ״ג), או פרט בחובה שנשארת בעינה גם אחריו (רמב״ם: ״כל יום ויום… מבטל מצות עשה״)?</li>
   </ol>
 </div>
 </div>
