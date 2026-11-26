@@ -121,8 +121,8 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
   <div class="top">
     <div>
       <h1><span class="he">מראה מקומות לתרי״ג מצוות</span><span class="en">Sources for the 613 Mitzvot</span></h1>
-      <p class="lede he">לפי מניין הרמב״ם בספר המצוות. לחצו על מצוה כדי לפתוח: לשון כל מונה במצוה, דברי הגרי״פ פערלא, וכל המקורות בספריא.</p>
-      <p class="lede en">Following the Rambam's count in Sefer HaMitzvot. Click any mitzva to open it: how each counter phrases it, R' Yerucham Fishel Perla's comments, and every source on Sefaria.</p>
+      <p class="lede he">לפי מניין הרמב״ם בספר המצוות. לחצו על מצוה כדי לפתוח: לשון כל מונה במצוה וכל המקורות בספריא. במצוות המסומנות ״בירור״ נוספו דברי הגרי״פ פערלא והמנחת חינוך.</p>
+      <p class="lede en">Following the Rambam's count in Sefer HaMitzvot. Click any mitzva to open it: how each counter phrases it and every source on Sefaria. Mitzvot marked "in depth" add R' Yerucham Fishel Perla's and the Minchat Chinuch's insights.</p>
     </div>
     <div class="topacts"><a class="asklink" id="asklink" href="https://claude.ai/artifact/C9sfastQbjZqZPf4abu85j#en" target="_blank" rel="noopener"><span class="he">שאלו את Claude ↗</span><span class="en">Ask Claude ↗</span></a><div class="seg" role="group" aria-label="Language"><button data-lang="english" aria-pressed="true">English</button><button data-lang="hebrew" aria-pressed="false" lang="he">עברית</button></div></div>
   </div>
@@ -1186,7 +1186,7 @@ const DDS={};
 function body(r){
   const k=r.k+r.n,dd=DD[k];
   if(dd&&!DDS[k])DDS[k]=sectionize(dd);
-  return `<div class="body">${dd?DDS[k]:""}${phrasing(r)}${dd?"":perlaHtml(r)}${sources(r)}</div>`;
+  return `<div class="body">${dd?DDS[k]:""}${phrasing(r)}${sources(r)}</div>`;
 }
 function loadPerla(){
   if(!perlaP)perlaP=fetch("perla.json").then(x=>x.json()).then(d=>{perla=d;for(const el of document.querySelectorAll(".perla[data-k]")){const r=data.find(z=>z.k+z.n===el.dataset.k);if(r)el.outerHTML=perlaHtml(r,el.open)}}).catch(()=>{for(const el of document.querySelectorAll(".perla .empty"))el.textContent="—"});
@@ -1207,7 +1207,7 @@ function render(){
 }
 listEl.addEventListener("toggle",e=>{
   const d=e.target;if(!d.matches||!d.matches("details.m"))return;
-  if(d.open&&!d.querySelector(".body")){const r=data.find(z=>z.k+z.n===d.id);d.insertAdjacentHTML("beforeend",body(r));for(const li of d.querySelectorAll("ol.nm>li")){li.tabIndex=0;li.setAttribute("role","button");li.setAttribute("aria-expanded","false")}loadPerla()}
+  if(d.open&&!d.querySelector(".body")){const r=data.find(z=>z.k+z.n===d.id);d.insertAdjacentHTML("beforeend",body(r));for(const li of d.querySelectorAll("ol.nm>li")){li.tabIndex=0;li.setAttribute("role","button");li.setAttribute("aria-expanded","false")}}
   else if(!d.open){const b=d.querySelector(".body");if(b)b.remove()}
 },true);
 listEl.addEventListener("click",e=>{
