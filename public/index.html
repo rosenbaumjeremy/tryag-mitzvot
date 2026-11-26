@@ -105,6 +105,9 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 @media(max-width:640px){details.m>summary{grid-template-columns:4.6em minmax(0,1fr) 1.2em;gap:8px}.body{padding-inline-start:10px}
  table.ft thead{display:none}table.ft tr{display:grid;padding:8px 0;border-bottom:1px solid var(--line)}table.ft td{border:0;padding:2px 0}table.ft td:first-child{width:auto}}
 @media(prefers-reduced-motion:reduce){.chev{transition:none}}
+.topacts{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.asklink{display:inline-flex;align-items:center;min-height:36px;padding:0 12px;border:1px solid var(--gold);border-radius:999px;color:var(--navy);font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap}
+.asklink:hover,.asklink:focus-visible{background:var(--gold);color:#1e1406;outline:none}
 </style>
 </head>
 <body>
@@ -115,7 +118,7 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
       <p class="lede he">לפי מניין הרמב״ם בספר המצוות. לחצו על מצוה כדי לפתוח: לשון כל מונה במצוה, דברי הגרי״פ פערלא, וכל המקורות בספריא.</p>
       <p class="lede en">Following the Rambam's count in Sefer HaMitzvot. Click any mitzva to open it: how each counter phrases it, R' Yerucham Fishel Perla's comments, and every source on Sefaria.</p>
     </div>
-    <div class="seg" role="group" aria-label="Language"><button data-lang="english" aria-pressed="true">English</button><button data-lang="hebrew" aria-pressed="false" lang="he">עברית</button></div>
+    <div class="topacts"><a class="asklink" id="asklink" href="https://claude.ai/artifact/C9sfastQbjZqZPf4abu85j#en" target="_blank" rel="noopener"><span class="he">שאלו את Claude ↗</span><span class="en">Ask Claude ↗</span></a><div class="seg" role="group" aria-label="Language"><button data-lang="english" aria-pressed="true">English</button><button data-lang="hebrew" aria-pressed="false" lang="he">עברית</button></div></div>
   </div>
   <div class="controls">
     <input id="q" type="search" autocomplete="off">
@@ -692,6 +695,10 @@ L=readLang();
 fetch("mitzvot.json").then(x=>x.json()).then(d=>{data=d;setLang(L,false);const h=location.hash.match(/#(P|N)(\d+)/);if(h){const el=document.getElementById(h[1]+h[2]);if(el){el.open=true;el.scrollIntoView()}}}).catch(()=>{listEl.innerHTML='<p class="empty">Could not load the list · שגיאה בטעינה</p>'});
 setLang(L,false);
 }
+</script>
+<script>
+// "Ask Claude" opens the Q&A page in Claude (answers only from this site, on each visitor's own Claude account); keep its language in step
+(()=>{const a=document.getElementById('asklink');if(!a)return;const set=()=>{a.href='https://claude.ai/artifact/C9sfastQbjZqZPf4abu85j#'+((document.documentElement.lang||'en').startsWith('he')?'he':'en');};set();new MutationObserver(set).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});})();
 </script>
 </body>
 </html>
