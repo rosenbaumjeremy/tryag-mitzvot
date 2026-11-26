@@ -44,6 +44,10 @@ main{padding:10px max(5vw,16px) 60px}
 .hint{color:var(--mute);font-size:14px;margin:12px 0 4px}
 /* the list */
 details.m{border-bottom:1px solid var(--line)}
+#list.focus>details.m:not([open]),#list.focus>.empty{display:none}
+.backbar{display:block;margin:4px 0 10px;padding:8px 14px;min-height:40px;border:1px solid var(--gold);border-radius:8px;background:var(--bg);color:var(--navy);font:600 14px Assistant,sans-serif;cursor:pointer}
+html[lang=he] .backbar{font:700 16px "Frank Ruhl Libre",serif}
+.backbar:hover{background:var(--panel)}
 details.m>summary{list-style:none;display:grid;grid-template-columns:5.6em minmax(0,1fr) 1.4em;gap:12px;align-items:baseline;padding:9px 4px;cursor:pointer}
 details.m>summary::-webkit-details-marker{display:none}
 details.m>summary:hover{background:var(--panel)}
@@ -2514,13 +2518,13 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
 <script>
 {
 const T={
-  en:{ph:"Search (Shabbat, tefillin, שבת) or a number: P 25, N 100",of:"of 613",pos:"Positive",neg:"Negative",star:"in depth",
+  en:{ph:"Search (Shabbat, tefillin, שבת) or a number: P 25, N 100",of:"of 613",pos:"Positive",neg:"Negative",star:"in depth",back:"← All mitzvot",
       phr:"How each counter phrases it",phr2:"Opening words of each source",perla2:"R' Perla — every passage on Sefaria",phrLead:"The opening words of each source for this mitzva, as they appear on Sefaria.",src:"Source",words:"Wording",
       shm:"Rambam, Sefer HaMitzvot",mt:"Rambam, list at the head of the Mishneh Torah",rasag:"Rasag",chinuch:"Chinuch",smag:"SMaG",smak:"SMaK",
       perla:"R' Yerucham Fishel Perla",perlaOn:"On Rasag's",perlaMissing:"Rasag counts this mitzva, but R' Perla's comment on it isn't on Sefaria.",
       cites:"Where R' Perla discusses the Rambam's count of this mitzva",ramban:"citing the Ramban",showAll:"Show all",noPerla:"No comment by R' Perla on this mitzva turned up in the sections that are on Sefaria.",
       loading:"Loading…",sources:"All sources",note:"Rambam's location note",torah:"Torah",mtL:"Mishneh Torah",talmud:"Gemara",midrash:"Midrash",tur:"Tur",shmX:"Sefer HaMitzvot (cross-refs)",comm:"Commentaries",other:"More",chars:"characters"},
-  he:{ph:"חיפוש (שבת, תפילין) או מספר: ע 25, ל 100",of:"מתוך 613",pos:"עשה",neg:"ל״ת",star:"בירור",
+  he:{ph:"חיפוש (שבת, תפילין) או מספר: ע 25, ל 100",of:"מתוך 613",pos:"עשה",neg:"ל״ת",star:"בירור",back:"חזרה לכל המצוות →",
       phr:"לשון כל מונה במצוה",phr2:"פתיחת דברי כל מקור",perla2:"הגרי״פ — כל המקומות שבספריא",phrLead:"פתיחת דברי כל מקור במצוה זו, כפי שהיא בספריא.",src:"מקור",words:"הלשון",
       shm:"רמב״ם, ספר המצוות",mt:"רמב״ם, מניין המצוות שבראש היד",rasag:"רס״ג",chinuch:"חינוך",smag:"סמ״ג",smak:"סמ״ק",
       perla:"הגרי״פ פערלא",perlaOn:"על רס״ג",perlaMissing:"רס״ג מונה מצוה זו, אך ביאור הגרי״פ עליה אינו בספריא.",
@@ -2608,21 +2612,29 @@ function render(){
   const res=match();cnt.textContent=`${res.length} ${t("of")}`;
   listEl.innerHTML=res.length?res.map(r=>`<details class="m" id="${r.k}${r.n}">${sum(r)}</details>`).join(""):`<p class="empty">—</p>`;
   for(const id of open){const d=document.getElementById(id);if(d)d.open=true}
+  if(!listEl.querySelector("details.m[open]"))listEl.classList.remove("focus");
 }
 listEl.addEventListener("toggle",e=>{
   const d=e.target;if(!d.matches||!d.matches("details.m"))return;
   if(d.open&&!d.querySelector(".body")){const r=data.find(z=>z.k+z.n===d.id);d.insertAdjacentHTML("beforeend",body(r));for(const li of d.querySelectorAll("ol.nm>li")){li.tabIndex=0;li.setAttribute("role","button");li.setAttribute("aria-expanded","false")}}
   else if(!d.open){const b=d.querySelector(".body");if(b)b.remove()}
+  if(d.open){for(const o of listEl.querySelectorAll("details.m[open]"))if(o!==d)o.open=false;
+    listEl.classList.add("focus");const bd=d.querySelector(".body");
+    if(bd&&!bd.querySelector(".backbar"))bd.insertAdjacentHTML("afterbegin",`<button type="button" class="backbar">${t("back")}</button>`);
+    window.scrollTo({top:d.getBoundingClientRect().top+window.scrollY-8})}
+  else if(!listEl.querySelector("details.m[open]")){listEl.classList.remove("focus");d.scrollIntoView({block:"center"})}
 },true);
 listEl.addEventListener("click",e=>{
+  const bb=e.target.closest(".backbar");if(bb){bb.closest("details.m").open=false;return}
   const b=e.target.closest(".perla .more");if(b){b.previousElementSibling.hidden=false;b.remove();return}
   if(e.target.closest("a"))return;
   const li=e.target.closest("ol.nm>li");if(li&&!e.target.closest(".nmx")){li.classList.toggle("x");li.setAttribute("aria-expanded",li.classList.contains("x"))}
 });
 listEl.addEventListener("keydown",e=>{const li=e.target.closest&&e.target.closest("ol.nm>li");if(li&&e.target===li&&(e.key==="Enter"||e.key===" ")){e.preventDefault();li.click()}});
 for(const b of document.querySelectorAll("button[data-lang]"))b.addEventListener("click",()=>setLang(b.dataset.lang==="hebrew"?"he":"en",true));
-for(const b of document.querySelectorAll("button[data-f]"))b.addEventListener("click",()=>{filter=b.dataset.f;for(const o of document.querySelectorAll("button[data-f]"))o.setAttribute("aria-pressed",o===b);render()});
-q.addEventListener("input",render);
+for(const b of document.querySelectorAll("button[data-f]"))b.addEventListener("click",()=>{filter=b.dataset.f;for(const o of document.querySelectorAll("button[data-f]"))o.setAttribute("aria-pressed",o===b);unfocus();render()});
+const unfocus=()=>{for(const o of listEl.querySelectorAll("details.m[open]"))o.open=false;listEl.classList.remove("focus")};
+q.addEventListener("input",()=>{unfocus();render()});
 window.addEventListener("hashchange",()=>{const l=readLang();if(l!==L)setLang(l,false)});
 L=readLang();
 fetch("mitzvot.json").then(x=>x.json()).then(d=>{data=d;setLang(L,false);const h=location.hash.match(/#(P|N)(\d+)/);if(h){const el=document.getElementById(h[1]+h[2]);if(el){el.open=true;el.scrollIntoView()}}}).catch(()=>{listEl.innerHTML='<p class="empty">Could not load the list · שגיאה בטעינה</p>'});
