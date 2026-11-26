@@ -44,7 +44,10 @@ main{padding:10px max(5vw,16px) 60px}
 .hint{color:var(--mute);font-size:14px;margin:12px 0 4px}
 /* the list */
 details.m{border-bottom:1px solid var(--line)}
-#list.focus>details.m:not([open]),#list.focus>.empty{display:none}
+#list.focus>details.m:not([open]),#list.focus>.empty,#list.focus>h2.par{display:none}
+h2.par{font:700 18px Assistant,sans-serif;color:var(--navy);margin:22px 0 4px;padding:6px 4px;border-bottom:2px solid var(--gold);position:sticky;top:0;background:var(--bg);z-index:1}
+html[lang=he] h2.par{font:700 21px "Frank Ruhl Libre",serif}
+h2.par small{font:600 13px Assistant,sans-serif;color:var(--mute);margin-inline-start:8px}
 .backbar{display:block;margin:4px 0 10px;padding:8px 14px;min-height:40px;border:1px solid var(--gold);border-radius:8px;background:var(--bg);color:var(--navy);font:600 14px Assistant,sans-serif;cursor:pointer}
 html[lang=he] .backbar{font:700 16px "Frank Ruhl Libre",serif}
 .backbar:hover{background:var(--panel)}
@@ -147,6 +150,7 @@ footer{color:var(--mute);font-size:14px;border-top:1px solid var(--line);padding
   <div class="controls">
     <input id="q" type="search" autocomplete="off">
     <div class="seg" role="group" aria-label="Filter"><button data-f="all" aria-pressed="true"><span class="en">All</span><span class="he">הכל</span></button><button data-f="P" aria-pressed="false"><span class="en">Positive</span><span class="he">עשה</span></button><button data-f="N" aria-pressed="false"><span class="en">Negative</span><span class="he">לא תעשה</span></button></div>
+    <div class="seg" role="group" aria-label="Order"><button data-o="r" aria-pressed="true"><span class="en">Rambam's order</span><span class="he">סדר הרמב״ם</span></button><button data-o="p" aria-pressed="false"><span class="en">By parasha</span><span class="he">לפי פרשיות</span></button></div>
     <span class="count" id="cnt"></span>
   </div>
 </div></header>
@@ -2547,6 +2551,9 @@ function setLang(l,push){
   if(push)history.replaceState(null,"","#lang="+(l==="he"?"hebrew":"english"));
   render();
 }
+const PAR_EN=["Bereshit","Lech Lecha","Vayishlach","Bo","Beshalach","Yitro","Mishpatim","Terumah","Tetzaveh","Ki Tisa","Vayakhel","Vayikra","Tzav","Shemini","Tazria","Metzora","Acharei Mot","Kedoshim","Emor","Behar","Bechukotai","Nasso","Beha'alotcha","Shelach","Korach","Chukat","Pinchas","Matot","Masei","Devarim","Va'etchanan","Eikev","Re'eh","Shoftim","Ki Teitzei","Ki Tavo","Vayelech"];
+const PAR_HE=["בראשית","לך לך","וישלח","בא","בשלח","יתרו","משפטים","תרומה","תצוה","כי תשא","ויקהל","ויקרא","צו","שמיני","תזריע","מצורע","אחרי מות","קדושים","אמור","בהר","בחוקותי","נשא","בהעלותך","שלח","קרח","חקת","פינחס","מטות","מסעי","דברים","ואתחנן","עקב","ראה","שופטים","כי תצא","כי תבוא","וילך"];
+let order="r";try{if(localStorage.getItem("tryag-order")==="p")order="p"}catch(e){}
 const label=r=>r.k==="P"?(L==="he"?"עשה":"Positive"):(L==="he"?"ל״ת":"Negative");
 const sum=r=>`<summary><span class="num">${L==="he"?(r.k==="P"?"עשה ":"ל״ת ")+heNum(r.n):(r.k==="P"?"P":"N")+" "+r.n}${L==="en"?`<small lang="he">${r.k==="P"?"ע":"ל"} ${heNum(r.n)}</small>`:""}</span><span class="ttl">${esc(L==="he"?r.h:r.e)}${DD[r.k+r.n]?`<span class="star">${t("star")}</span>`:""}</span><span class="chev" aria-hidden="true">›</span></summary>`;
 
@@ -2610,7 +2617,13 @@ function render(){
   if(!data.length)return;
   const open=new Set([...document.querySelectorAll("details.m[open]")].map(d=>d.id));
   const res=match();cnt.textContent=`${res.length} ${t("of")}`;
-  listEl.innerHTML=res.length?res.map(r=>`<details class="m" id="${r.k}${r.n}">${sum(r)}</details>`).join(""):`<p class="empty">—</p>`;
+  let html="";
+  if(order==="p"){
+    const rs=[...res].sort((a,b)=>a.ch-b.ch);let cur=-1;const per={};for(const r of rs)per[r.pa]=(per[r.pa]||0)+1;
+    for(const r of rs){if(r.pa!==cur){cur=r.pa;html+=`<h2 class="par">${L==="he"?"פרשת "+PAR_HE[cur]:PAR_EN[cur]+` <span lang="he">${PAR_HE[cur]}</span>`}<small>${per[cur]}</small></h2>`}
+      html+=`<details class="m" id="${r.k}${r.n}">${sum(r)}</details>`}
+  }else html=res.map(r=>`<details class="m" id="${r.k}${r.n}">${sum(r)}</details>`).join("");
+  listEl.innerHTML=res.length?html:`<p class="empty">—</p>`;
   for(const id of open){const d=document.getElementById(id);if(d)d.open=true}
   if(!listEl.querySelector("details.m[open]"))listEl.classList.remove("focus");
 }
@@ -2635,6 +2648,9 @@ for(const b of document.querySelectorAll("button[data-lang]"))b.addEventListener
 for(const b of document.querySelectorAll("button[data-f]"))b.addEventListener("click",()=>{filter=b.dataset.f;for(const o of document.querySelectorAll("button[data-f]"))o.setAttribute("aria-pressed",o===b);unfocus();render()});
 const unfocus=()=>{for(const o of listEl.querySelectorAll("details.m[open]"))o.open=false;listEl.classList.remove("focus")};
 q.addEventListener("input",()=>{unfocus();render()});
+const setOrder=o=>{order=o;for(const b of document.querySelectorAll("button[data-o]"))b.setAttribute("aria-pressed",b.dataset.o===o);try{localStorage.setItem("tryag-order",o)}catch(e){}};
+for(const b of document.querySelectorAll("button[data-o]"))b.addEventListener("click",()=>{setOrder(b.dataset.o);unfocus();render()});
+setOrder(order);
 window.addEventListener("hashchange",()=>{const l=readLang();if(l!==L)setLang(l,false)});
 L=readLang();
 fetch("mitzvot.json").then(x=>x.json()).then(d=>{data=d;setLang(L,false);const h=location.hash.match(/#(P|N)(\d+)/);if(h){const el=document.getElementById(h[1]+h[2]);if(el){el.open=true;el.scrollIntoView()}}}).catch(()=>{listEl.innerHTML='<p class="empty">Could not load the list · שגיאה בטעינה</p>'});
